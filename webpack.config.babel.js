@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -18,11 +19,11 @@ const CSS_MAPS = ENV!=='production';
 const VENDORS = /\bbabel\-standalone\b/;
 
 module.exports = {
-	context: `${__dirname}/src`,
+	context: path.join(__dirname, 'src'),
 	entry: './index.js',
 
 	output: {
-		path: `${__dirname}/build`,
+		path: path.join(__dirname, 'build'),
 		publicPath: '/',
 		// filename: 'bundle.js'
 		filename: 'bundle.[hash].js',
@@ -32,13 +33,13 @@ module.exports = {
 	resolve: {
 		extensions: ['', '.jsx', '.js', '.json', '.less'],
 		modulesDirectories: [
-			`${__dirname}/src/lib`,
-			`${__dirname}/node_modules`,
+			path.join(__dirname, 'src/lib'),
+			path.join(__dirname, 'node_modules'),
 			'node_modules'
 		],
 		alias: {
-			components: `${__dirname}/src/components`,
-			style: `${__dirname}/src/style`,
+			components: path.join(__dirname, 'src/components'),
+			style: path.join(__dirname, 'src/style'),
 			'react': 'preact-compat',
 			'react-dom': 'preact-compat'
 		}
@@ -117,7 +118,7 @@ module.exports = {
 				collapseWhitespace: true,
 				removeComments: true
 			},
-			favicon: `${__dirname}/src/assets/favicon.ico`,
+			favicon: path.join(__dirname, 'src/assets/favicon.ico'),
 			title: config.title,
 			config
 		})
@@ -192,7 +193,7 @@ module.exports = {
 		quiet: true,
 		clientLogLevel: 'error',
 		compress: true,
-		contentBase: `${__dirname}/src`,
+		contentBase: path.join(__dirname, 'src'),
 		historyApiFallback: true,
 		setup(app) {
 			app.use('/content/**', (req, res) => {
